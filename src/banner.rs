@@ -9,8 +9,8 @@ pub fn print_banner() {
  //  \ _    //  __'  \  \  |___  \  |___ |.  |    //      /   //  __'  \  //  \ _   // ___)_  //      /
 (:   _) \  /   /  \\  \( \_|:  \( \_|:  \\:  |   |:  __   \  /   /  \\  \(:   _) \ (:      "||:  __   \
  \_______)(___/    \___)\_______)\_______)\__|   |__|  \___)(___/    \___)\_______) \_______)|__|  \___)
-                              CLI OSINT tool for phone number investigation
-                                     v0.1.0              Author: mël "#;
+                             CLI OSINT tool for phone number investigation
+                                   v0.1.0              Author: mël "#;
 
     println!("{}", banner.purple());
     print_divider();
