@@ -5,7 +5,8 @@ mod reverse;
 mod social;
 mod voip;
 mod utils;
+mod banner;
 
 fn main() {
-    println!("Hello, world!");
+    banner::print_banner();
 }
