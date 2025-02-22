@@ -10,7 +10,7 @@ pub fn print_banner() {
 (:   _) \  /   /  \\  \( \_|:  \( \_|:  \\:  |   |:  __   \  /   /  \\  \(:   _) \ (:      "||:  __   \
  \_______)(___/    \___)\_______)\_______)\__|   |__|  \___)(___/    \___)\_______) \_______)|__|  \___)
                              CLI OSINT tool for phone number investigation
-                                   v0.1.0              Author: mël "#;
+                                                v0.1.0              "#;
 
     println!("{}", banner.purple());
     print_divider();
