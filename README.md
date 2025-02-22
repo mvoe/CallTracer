@@ -14,7 +14,7 @@
 
 CallTrace is a CLI OSINT tool for phone number investigation. It supports the following features:
 
-- **🌍 Format Check & Origin Analysis:** Validate phone numbers and determine their country and carrier.
+- **🌍 Format Check & Origin Analysis:** Validate phone numbers and determine their country.
 - **🔓 Leak Database Check:** Verify if a phone number has appeared in any data breaches.
 - **🔎 Reverse Lookup:** Attempt to retrieve associated information using reverse lookup.
 - **📱 Social Media Check:** Determine if the phone number is linked to social media profiles.

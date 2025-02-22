@@ -7,7 +7,10 @@ pub fn check_number_format(number: &str) -> bool {
     match parse(None, number) {
         Ok(phone) => {
             // Print the phone number in international format
-            println!("{} {}", "[+] Valid number:".green(), phone.format().mode(Mode::International));
+            println!("{} {}", "[+] Valid number:".green(),
+                     phone
+                         .format()
+                         .mode(Mode::International));
 
             // Try to get the country information using a separate function
             match get_country_info(&phone) {
