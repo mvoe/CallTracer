@@ -12,19 +12,19 @@
 
 ## Overview 🚀
 
-CallTrace is a CLI OSINT tool for phone number investigation. It supports the following features:
+CallTracer is a CLI OSINT tool for phone number investigation, written in Rust. It supports the following features:
 
-- **🌍 Format Check & Origin Analysis:** Validate phone numbers and determine their country.
-- **🔎 Reverse Lookup:** Attempt to retrieve associated information using reverse lookup.
-- **📱 Social Media Check:** Determine if the phone number is linked to social media profiles.
-- **☎️ VOIP Check:** Identify if the number is a VOIP number.
+- **📏 Format Check:** Validate the structure of phone numbers.
+- **🌍 Country & Provider Info:** Retrieve details about the phone number’s origin and carrier using an external API.
 
+More features will follow as development continues.
 
 ## Installation 🛠️
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/your-username/CallTrace.git
+   ```
 2. Navigate to the project directory:
     ```bash 
     cd CallTracer
@@ -35,52 +35,34 @@ CallTrace is a CLI OSINT tool for phone number investigation. It supports the fo
     ```
 4. Build and run the project:
     ```bash
-   cargo run -- --number "+1234567890" --all
+   cargo run -- --number "+1234567890" --format
     ```
+
+## API Key Setup 🔑
+To use the country and provider lookup feature, you need an neutrino API key. Update the `perform_lookup` function in the code:
+
+```rust
+let user = "YOUR_USER_ID";
+let api_key = "YOUR_API_KEY";
+```
+Replace `YOUR_USER_ID` and `YOUR_API_KEY` with valid credentials.
 
 ## Usage ⚙️
 
-Run the tool via Cargo with the following commands. Replace `"+1234567890"` with the phone number you want to investigate.
-
-### Running All Checks
-To perform all available checks (format, leak, reverse lookup, social media, and VOIP), run:
-
-```bash
-cargo run -- --number "+1234567890" --all
-```
-## Running Specific Checks
-
-### Format Check & Origin Analysis
-Validates the phone number and shows country/carrier details.
+### Format Check
+Validates the structure of a phone number.
 
 ```bash
 cargo run -- --number "+1234567890" --format
 ```
 
-### Reverse Lookup
-Retrieves associated information using reverse lookup services.
+### Country & Provider Info (API-Based)
+Retrieves country and provider details using an API.
 
 ```bash
-cargo run -- --number "+1234567890" --reverse
-```
-
-### Social Media Check
-Checks for social media profiles linked to the phone number.
-
-```bash
-cargo run -- --number "+1234567890" --social
-```
-
-### VOIP Check
-Determines whether the number is a VOIP number.
-
-```bash
-cargo run -- --number "+1234567890" --voip
+cargo run -- --number "+1234567890" --lookup
 ```
 
 ## Disclaimer ⚠️
 
-**Note:** This project is still under active development. Some features may be incomplete or subject to change. Contributions, feedback, and suggestions are very welcome!
-
-
-
+**Note:** This tool is still under development. Additional features will be implemented over time. Contributions, feedback, and suggestions are welcome!
