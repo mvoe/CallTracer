@@ -7,3 +7,4 @@ edition = "2021"
 colored = "3.0.0"
 phonenumber = "0.3"
 clap = { version = "4", features = ["derive"] }
+neutrino_api_client_reqwest = { git = "https://github.com/NeutrinoAPI/neutrino-api-client-reqwest.git", branch = "master" }

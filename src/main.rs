@@ -1,13 +1,14 @@
 mod banner;
 mod config;
 mod format;
-mod leak;
 mod reverse;
 mod social;
 mod voip;
 mod utils;
+mod lookup;
 
 use clap::{Arg, Command};
+use colored::*;
 
 fn main() {
     banner::print_banner();
@@ -31,13 +32,35 @@ fn main() {
                 .help("Perform only format check")
                 .action(clap::ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("lookup")
+                .short('l')
+                .long("lookup")
+                .help("Perform lookup using Neutrino API")
+                .action(clap::ArgAction::SetTrue),
+        )
         .get_matches();
 
-    // Retrieve the phone number from the arguments
+    // Retrieve the phone number from the arguments.
     let number = matches.get_one::<String>("number").unwrap();
 
-    // Check if the format flag is set
-    if matches.get_flag("format") {
+    let lookup_flag = matches.get_flag("lookup");
+    let format_flag = matches.get_flag("format");
+
+    if !lookup_flag && !format_flag {
+        println!(
+            "{} {}",
+            "[*] Running check for".purple(),
+            number.yellow().bold()
+        );
         format::check_number_format(number);
+        lookup::perform_lookup(number);
+    } else {
+        if format_flag {
+            format::check_number_format(number);
+        }
+        if lookup_flag {
+            lookup::perform_lookup(number);
+        }
     }
 }
