@@ -82,7 +82,7 @@ async fn main() {
             .await
             .unwrap();
 
-        if let Err(e) = googledorking::google_dork_search(&number).await {
+        if let Err(e) = googledorking::google_dork_search(&number) {
             eprintln!("{}", format!("[!] Google dorking failed: {}", e).red());
         }
 
@@ -107,7 +107,7 @@ async fn main() {
                 .unwrap();
         }
         if googledorking_flag {
-            if let Err(e) = googledorking::google_dork_search(&number).await {
+            if let Err(e) = googledorking::google_dork_search(&number) {
                 eprintln!("{}", format!("[!] Google dorking failed: {}", e).red());
             }
         }
