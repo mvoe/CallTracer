@@ -4,8 +4,8 @@ mod voip;
 mod lookup;
 mod googledorking;
 mod duckduckgo;
+mod cli;  // new module
 
-use clap::{Arg, Command};
 use colored::*;
 use tokio::task;
 
@@ -13,56 +13,12 @@ use tokio::task;
 async fn main() {
     banner::print_banner();
 
-    let matches = Command::new("CallTracer")
-        .version("0.1.0")
-        .author("mël")
-        .about("CLI OSINT tool for phone number investigation")
-        .arg(
-            Arg::new("number")
-                .short('n')
-                .long("number")
-                .help("Phone number to analyze")
-                .required(true)
-                .value_parser(clap::value_parser!(String)),
-        )
-        .arg(
-            Arg::new("format")
-                .short('f')
-                .long("format")
-                .help("Perform only format check")
-                .action(clap::ArgAction::SetTrue),
-        )
-        .arg(
-            Arg::new("lookup")
-                .short('l')
-                .long("lookup")
-                .help("Perform lookup using Neutrino API")
-                .action(clap::ArgAction::SetTrue),
-        )
-        .arg(
-            Arg::new("googledorking")
-                .short('g')
-                .long("googledorking")
-                .help("Perform lookup with Google dorking")
-                .action(clap::ArgAction::SetTrue),
-        )
-        .arg(
-            Arg::new("duckduckgo")
-                .short('k')
-                .long("duckduckgo")
-                .help("Perform lookup with DuckDuckGo")
-                .action(clap::ArgAction::SetTrue),
-        )
-        .get_matches();
+    // Parse CLI arguments using our dedicated module
+    let cli_args = cli::parse_args();
+    let number = cli_args.number;
 
-    let number = matches.get_one::<String>("number").unwrap().to_string();
-
-    let lookup_flag = matches.get_flag("lookup");
-    let format_flag = matches.get_flag("format");
-    let googledorking_flag = matches.get_flag("googledorking");
-    let duckduckgo_flag = matches.get_flag("duckduckgo");
-
-    if !lookup_flag && !format_flag && !googledorking_flag && !duckduckgo_flag {
+    // Depending on the flags, run the corresponding checks
+    if !cli_args.format && !cli_args.lookup && !cli_args.googledorking && !cli_args.duckduckgo {
         println!(
             "{} {}",
             "Running check for".purple(),
@@ -90,7 +46,7 @@ async fn main() {
             eprintln!("{}", format!("[!] DuckDuckGo search failed: {}", e).red());
         }
     } else {
-        if format_flag {
+        if cli_args.format {
             task::spawn_blocking({
                 let number = number.clone();
                 move || format::check_number_format(&number)
@@ -98,7 +54,7 @@ async fn main() {
                 .await
                 .unwrap();
         }
-        if lookup_flag {
+        if cli_args.lookup {
             task::spawn_blocking({
                 let number = number.clone();
                 move || lookup::perform_lookup(&number)
@@ -106,12 +62,12 @@ async fn main() {
                 .await
                 .unwrap();
         }
-        if googledorking_flag {
+        if cli_args.googledorking {
             if let Err(e) = googledorking::google_dork_search(&number) {
                 eprintln!("{}", format!("[!] Google dorking failed: {}", e).red());
             }
         }
-        if duckduckgo_flag {
+        if cli_args.duckduckgo {
             if let Err(e) = duckduckgo::duckduckgo_search(&number).await {
                 eprintln!("{}", format!("[!] DuckDuckGo search failed: {}", e).red());
             }
