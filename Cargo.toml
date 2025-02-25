@@ -8,3 +8,9 @@ colored = "3.0.0"
 phonenumber = "0.3"
 clap = { version = "4", features = ["derive"] }
 neutrino_api_client_reqwest = { git = "https://github.com/NeutrinoAPI/neutrino-api-client-reqwest.git", branch = "master" }
+reqwest = "0.11.27"
+scraper = "0.17"
+tokio = { version = "1", features = ["full"] }
+arti-client = "0.27.0"
+serde = "1.0.218"
+urlencoding = "2.1.3"

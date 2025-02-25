@@ -6,13 +6,16 @@ use urlencoding::encode;
 /// Performs a DuckDuckGo search using the static HTML interface and counts the results.
 pub async fn duckduckgo_search(query: &str) -> Result<(), Box<dyn Error>> {
     let encoded_query = encode(query);
+    // URL-encode the query and build the search URL
     let url = format!("https://html.duckduckgo.com/html?q={}", encoded_query);
 
     let response = reqwest::get(&url).await?.text().await?;
     let document = Html::parse_document(&response);
+
+    // Parse the HTML and count elements with the class "result__a"
     let selector = Selector::parse("a.result__a").unwrap();
 
-    println!("{} {}", "DuckDuckGo search results for query:".purple(), query);
+    println!("{} {}", "DuckDuckGo search results:".purple(), query);
     println!("{} {}", "[*] Fetching URL:".cyan(), url);
 
     let count = document.select(&selector).count();
