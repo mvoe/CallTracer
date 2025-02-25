@@ -2,7 +2,6 @@ mod banner;
 mod format;
 mod voip;
 mod lookup;
-mod darkcheck;
 mod googledorking;
 mod duckduckgo;
 
@@ -56,7 +55,6 @@ async fn main() {
         )
         .get_matches();
 
-    // Wir kopieren die CLI-Eingabe in einen eigenen String, um Lifetimes-Probleme zu vermeiden.
     let number = matches.get_one::<String>("number").unwrap().to_string();
 
     let lookup_flag = matches.get_flag("lookup");

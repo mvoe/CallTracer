@@ -4,6 +4,8 @@ use neutrino_api_client_reqwest::NeutrinoAPIClient;
 use colored::*; // For colored terminal output
 use std::collections::HashMap;
 
+
+
 /// Performs a phone lookup using the Neutrino API client.
 /// This function constructs the API request parameters, sends the request,
 /// and then prints out the returned data or any error messages.
@@ -28,6 +30,8 @@ pub fn perform_lookup(number: &str) {
     // Check if the API response contains data.
     if let Some(data) = response.data {
         println!("{}", "[+] API Response OK:".green());
+        println!("{} {}", "Neutrino search results for query:".purple(), number);
+
 
         let country = data.get("country").and_then(|v| v.as_str()).unwrap_or("N/A");
         println!("{} {}", "[+] Country:".green(), country);
