@@ -5,8 +5,7 @@ pub struct CliArgs {
     pub number: String,
     pub format: bool,
     pub lookup: bool,
-    pub googledorking: bool,
-    pub duckduckgo: bool,
+    pub internetsearch: bool,
 }
 
 /// Parses the command line arguments and returns a `CliArgs` instance.
@@ -38,32 +37,24 @@ pub fn parse_args() -> CliArgs {
                 .action(clap::ArgAction::SetTrue),
         )
         .arg(
-            Arg::new("googledorking")
-                .short('g')
-                .long("googledorking")
-                .help("Perform lookup with Google dorking")
+            Arg::new("internetsearch")
+                .short('i')
+                .long("internetsearch")
+                .help("Search the internet")
                 .action(clap::ArgAction::SetTrue),
         )
-        .arg(
-            Arg::new("duckduckgo")
-                .short('k')
-                .long("duckduckgo")
-                .help("Perform lookup with DuckDuckGo")
-                .action(clap::ArgAction::SetTrue),
-        )
+
         .get_matches();
 
     let number = matches.get_one::<String>("number").unwrap().to_string();
     let format = matches.get_flag("format");
     let lookup = matches.get_flag("lookup");
-    let googledorking = matches.get_flag("googledorking");
-    let duckduckgo = matches.get_flag("duckduckgo");
+    let internetsearch = matches.get_flag("internetsearch");
 
     CliArgs {
         number,
         format,
         lookup,
-        googledorking,
-        duckduckgo,
+        internetsearch
     }
 }

@@ -16,7 +16,7 @@ pub fn print_banner() {
     print_divider();
 }
 
-fn print_divider() {
+pub fn print_divider() {
     let divider = "=".repeat(105);
     println!("{}", divider.bold().cyan());
 }
